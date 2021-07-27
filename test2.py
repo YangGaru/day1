@@ -1,8 +1,15 @@
 import numpy as np
 import cv2 as cv
-from matplotlib import pyplot as plt
-
-img = cv.imread('messi5.jpg',0)
-plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
-plt.xticks([]), plt.yticks([]) # 隐藏 X 和 Y 轴的刻度值
-plt.show()
+cap = cv.VideoCapture(0)
+while(True):
+    # 一帧一帧捕捉
+    ret, frame = cap.read()
+    # 我们对帧的操作在这里
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    # 显示返回的每帧
+    cv.imshow('frame',gray)
+    if cv.waitKey(1) & 0xFF == ord('q'):
+        break
+# 当所有事完成，释放 VideoCapture 对象
+cap.release()
+cv.destroyAllWindows()
